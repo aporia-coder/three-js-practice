@@ -44,6 +44,31 @@ pointLight2.position.set(1, 1, 1);
 pointLight2.intensity = 1;
 scene.add(pointLight2);
 
+const light2 = gui.addFolder("Light 2");
+
+light2.add(pointLight2.position, "x").min(-6).max(6).step(0.01);
+light2.add(pointLight2.position, "y").min(-3).max(3).step(0.01);
+light2.add(pointLight2.position, "z").min(-3).max(3).step(0.01);
+light2.add(pointLight2, "intensity").min(0).max(10).step(0.01);
+
+const light2Color = {
+  color: 0xff0000,
+};
+
+light2.addColor(light2Color, "color").onChange(() => {
+  pointLight2.color.set(light2Color.color);
+});
+
+const pointLight3 = new THREE.PointLight(0x34ebcf, 2);
+pointLight3.position.set(1, 1, 1);
+pointLight3.intensity = 1;
+scene.add(pointLight3);
+
+gui.add(pointLight3.position, "x").min(-6).max(6).step(0.01);
+gui.add(pointLight3.position, "y").min(-3).max(3).step(0.01);
+gui.add(pointLight3.position, "z").min(-3).max(3).step(0.01);
+gui.add(pointLight3, "intensity").min(0).max(10).step(0.01);
+
 /**
  * Sizes
  */
