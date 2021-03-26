@@ -40,7 +40,7 @@ pointLight.position.z = 4;
 scene.add(pointLight);
 
 const pointLight2 = new THREE.PointLight(0xff0000, 2);
-pointLight2.position.set(1, 1, 1);
+pointLight2.position.set(-6, 1, 1);
 pointLight2.intensity = 1;
 scene.add(pointLight2);
 
@@ -124,13 +124,35 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
  * Animate
  */
 
+let mouseX = 0;
+let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
+
+const halfWindowX = window.innerWidth / 2;
+const halfWindowY = window.innerHeight / 2;
+
+const onMouseMove = (e) => {
+  mouseX = e.clientX - halfWindowX;
+  mouseY = e.clientY - halfWindowY;
+};
+
+document.addEventListener("mousemove", onMouseMove);
+
 const clock = new THREE.Clock();
 
 const tick = () => {
+  targetX = mouseX * 0.001;
+  targetY = mouseY * 0.001;
+
   const elapsedTime = clock.getElapsedTime();
 
   // Update objects
   sphere.rotation.y = 0.5 * elapsedTime;
+
+  sphere.rotation.y += 0.05 * (targetX - sphere.rotation.y);
+  sphere.rotation.x += 0.05 * (targetY - sphere.rotation.x);
+  sphere.rotation.z += 0.05 * (targetX - sphere.rotation.y);
 
   // Update Orbital Controls
   // controls.update()
